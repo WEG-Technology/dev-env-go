@@ -1,18 +1,26 @@
-project_name: development-env
-builds:
-  - main: ./cmd/main.go
-    goos:
-      - linux
-      #- darwin
-      #- windows
-    goarch:
-      - amd64
-      #- arm64
-    ldflags: -s -w
+before:
+  hooks:
+    - go mod download
+build:
+  goos:
+    - darwin
+    - linux
+    - windows
 archives:
-  - format: binary
-    name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
+- replacements:
+    darwin: Darwin
+    linux: Linux
+    windows: Windows
+    386: i386
+    amd64: x86_64
+  format: binary
 checksum:
-  name_template: "{{ .ProjectName }}_checksums.txt"
+  name_template: 'checksums.txt'
 snapshot:
-  name_template: "{{ .ProjectName }}_{{ .Version }}_snapshot"
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+    - '^docs:'
+    - '^test:'
