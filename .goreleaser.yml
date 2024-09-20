@@ -33,5 +33,5 @@ changelog:
       - '^test:'
 release:
   github:
-    owner: your-github-username
-    name: development-env
+    owner: hursit
+    name: dev-env-go
