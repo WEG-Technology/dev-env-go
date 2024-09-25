@@ -22,3 +22,12 @@ func ExecuteAnsiblePlaybook(tempDir string) {
 		log.Fatalf("Ansible playbook execution failed: %s", err)
 	}
 }
+
+func WriteConfigToFile(config string, tempDir string) {
+	filePath := fmt.Sprintf("%s/vars.yaml", tempDir)
+	err := os.WriteFile(filePath, []byte(config), 0644)
+	if err != nil {
+		log.Fatalf("Error writing configuration file: %s", err)
+	}
+	fmt.Println("Configuration file successfully written:", filePath)
+}

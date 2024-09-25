@@ -30,6 +30,7 @@ func main() {
 	}
 
 	fmt.Println(config.ExportYaml(cfg))
+	ansible.WriteConfigToFile(config.ExportYaml(cfg), *tempDir)
 
 	ansible.ExecuteAnsiblePlaybook(*tempDir)
 }
