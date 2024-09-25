@@ -2,10 +2,8 @@ package main
 
 import (
 	"development-env/internal/ansible"
-	"development-env/internal/config"
 	"flag"
 	"fmt"
-	"log"
 	"os"
 )
 
@@ -24,13 +22,7 @@ func main() {
 	ansible.PrepareWorkingDirectory(*tempDir)
 	ansible.CloneRepository(*repoURL, *tempDir)
 
-	cfg, err := config.GetConfig(*url)
-	if err != nil {
-		log.Fatalf("Failed to get config: %s", err)
-	}
-
-	fmt.Println(config.ExportYaml(cfg))
-	ansible.WriteConfigToFile(config.ExportYaml(cfg), *tempDir)
+	ansible.WriteConfigToFile(*url, *tempDir)
 
 	ansible.ExecuteAnsiblePlaybook(*tempDir)
 }
